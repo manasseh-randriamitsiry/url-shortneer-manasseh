@@ -17,6 +17,14 @@ Vous devez créer un service web permettant aux utilisateurs de soumettre une UR
 - **PostgreSQL** database avec **Prisma ORM**
 - **Validation** des données d'entrée
 - **Tests unitaires** complets
+- **CORS** configuré pour le frontend
+
+### Frontend - React (TypeScript)
+- **Interface utilisateur moderne** et responsive
+- **Formulaire de saisie** pour URLs longues
+- **Affichage des résultats** avec URLs raccourcies
+- **Fonctionnalités** : copie dans le presse-papiers, test des liens
+- **Design moderne** avec dégradés et animations
 
 ### API Endpoints
 
@@ -79,12 +87,20 @@ npm run db:generate
 npm run db:push
 ```
 
+5. Installez les dépendances du frontend
+```bash
+npm run install:frontend
+```
+
 ## Scripts disponibles
 
 ### Développement
 ```bash
-# Démarrer en mode développement
-npm run start:dev
+# Démarrer le backend (API)
+npm run dev:backend
+
+# Démarrer le frontend (React) - dans un autre terminal
+npm run dev:frontend
 
 # Démarrer en mode production
 npm run start:prod
@@ -130,26 +146,6 @@ npm run lint
 
 # Formatage du code
 npm run format
-```
-
-## Structure du projet
-
-```
-src/
-├── app.module.ts           # Module principal
-├── main.ts                 # Point d'entrée de l'application
-├── database/               # Module de base de données
-│   ├── database.module.ts
-│   └── database.service.ts
-└── url/                    # Module URL
-    ├── dto/
-    │   └── create-url.dto.ts
-    ├── entities/
-    │   └── url.entity.ts
-    ├── url.controller.ts
-    ├── url.service.ts
-    ├── url.module.ts
-    └── *.spec.ts           # Tests unitaires
 ```
 
 ## Fonctionnalités implémentées
