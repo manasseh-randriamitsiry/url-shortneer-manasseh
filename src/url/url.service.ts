@@ -1,17 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service'; // adjust path as needed
 import { CreateUrlDto } from './dto/create-url.dto';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class UrlService {
   constructor(private readonly db: DatabaseService) {}
 
   generateShortCode(length = 6): string {
-    return Math.random().toString(36).substring(2, 2 + length);
+    const characters =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = crypto.randomInt(characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
   }
 
   async create(createUrlDto: CreateUrlDto) {
-    const shortCode = this.generateShortCode();
+    let shortCode: string;
+    let attempts = 0;
+    const maxAttempts = 10;
+
+    // Generate a unique short code
+    do {
+      shortCode = this.generateShortCode();
+      attempts++;
+
+      if (attempts > maxAttempts) {
+        throw new Error('Unable to generate unique short code');
+      }
+
+      const existing = await this.findOne(shortCode);
+      if (!existing) {
+        break;
+      }
+    } while (attempts <= maxAttempts);
+
     return this.db.url.create({
       data: {
         originalUrl: createUrlDto.originalUrl,
