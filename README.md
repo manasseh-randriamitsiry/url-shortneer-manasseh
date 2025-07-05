@@ -1,3 +1,6 @@
+# frontend link
+https://github.com/manasseh-randriamitsiry/url-shortneer-manasseh-frontend.git
+
 # URL Shortener - NestJS Application
 
 A full-stack URL shortener application built with NestJS, TypeScript, Prisma, and PostgreSQL.
@@ -98,9 +101,6 @@ npm run install:frontend
 ```bash
 # Démarrer le backend (API)
 npm run dev:backend
-
-# Démarrer le frontend (React) - dans un autre terminal
-npm run dev:frontend
 
 # Démarrer en mode production
 npm run start:prod
